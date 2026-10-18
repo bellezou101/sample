@@ -12,7 +12,7 @@
 :root{
   --bg:#000000; --bg2:#0B0C0F; --text:#FFFFFF; --muted:#A4ABB6; --faint:#707884;
   --line:rgba(255,255,255,.16); --line-soft:rgba(255,255,255,.09);
-  --blue:#5B8CFF; --blue-bg:rgba(91,140,255,.18);
+  --blue:#4D7CFF; --blue-bg:rgba(77,124,255,.2);
   --serif:Georgia,"Times New Roman",serif;
   --sans:"Helvetica Neue","SF Pro Text",-apple-system,"Segoe UI",Calibri,Carlito,Arial,sans-serif;
   --pad:clamp(22px,6vw,96px);
@@ -52,42 +52,59 @@ button,input,select,textarea{font:inherit;color:inherit}
 .textlink:hover{border-bottom-color:#fff}
 
 /* hero */
-.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;align-items:flex-end}
-.hero .in{position:relative;z-index:2;width:100%;padding-bottom:clamp(56px,11vh,120px);padding-top:140px}
-.hero h1{font-size:clamp(2.9rem,6.6vw,6.9rem);line-height:1;letter-spacing:-.035em}
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,4vw,80px);align-items:center;width:100%;padding-top:128px;padding-bottom:clamp(48px,8vh,96px)}
+.hero h1{font-size:clamp(2.5rem,4.7vw,5.4rem);line-height:1.02;letter-spacing:-.035em}
 .hero h1 span{display:block}
-.hero .lede{margin-top:clamp(28px,4vh,44px);max-width:33em;font-size:clamp(1.1rem,1.5vw,1.3rem);line-height:1.5;color:var(--muted)}
-.hero .acts{display:flex;align-items:center;gap:36px;margin-top:40px;flex-wrap:wrap}
-.rings{position:absolute;z-index:1;right:-14vw;top:56%;width:min(96vh,860px);transform:translateY(-50%);pointer-events:none}
-.ring-art{width:100%;height:auto;display:block;overflow:visible}
-.ring-art g{transform-box:fill-box;transform-origin:center;opacity:0;animation:draw 1.5s cubic-bezier(.2,.7,.15,1) forwards}
-.ring-art .guides{animation-delay:.05s}
-.ring-art .core{animation-delay:.2s}
-.ring-art .spin-a{animation-delay:.65s}
-.ring-art .spin-b{animation-delay:1.15s}
-@keyframes draw{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.rff{fill:#fff}
-.rfs{fill:none;stroke:rgba(255,255,255,.85)}
-.ras{fill:none;stroke:var(--blue)}
-.rgr{fill:none;stroke:rgba(255,255,255,.2)}
-@media (prefers-reduced-motion:reduce){.ring-art g{animation:none;opacity:1}}
+.hero .lede{margin-top:clamp(26px,4vh,40px);max-width:32em;font-size:clamp(1.08rem,1.4vw,1.25rem);line-height:1.5;color:var(--muted)}
+.hero .acts{display:flex;align-items:center;gap:36px;margin-top:38px;flex-wrap:wrap}
+.mark-wrap{width:clamp(280px,38vw,620px)}
+.hero-mark{width:100%;height:auto;display:block;overflow:visible}
+
+/* the mark: final frame is the logo; the animation is a ripple that fragments as it moves out */
+.hero-mark .dot{fill:#fff;r:7}
+.hero-mark .w1{fill:none;stroke:#fff;stroke-width:8;r:18}
+.hero-mark .w2{fill:none;stroke:var(--blue);stroke-width:7;r:32;stroke-dasharray:16.6667 3.3333}
+.hero-mark .w3{fill:none;stroke:var(--blue);stroke-width:7;r:45;stroke-dasharray:4.4444 3.8889}
+.hero-mark .echo{fill:none;stroke:var(--blue);stroke-width:.35;opacity:0;r:46}
+.hero-mark .dot{animation:dot .7s cubic-bezier(.2,.8,.2,1) .15s backwards}
+.hero-mark .w1{animation:w1 1s cubic-bezier(.2,.7,.15,1) .55s backwards}
+.hero-mark .w2{animation:w2 1.5s cubic-bezier(.2,.7,.15,1) 1.35s backwards}
+.hero-mark .w3{animation:w3 1.8s cubic-bezier(.2,.7,.15,1) 2.45s backwards}
+.hero-mark .e1{animation:echo 2.4s ease-out 3.8s forwards}
+.hero-mark .e2{animation:echo 2.4s ease-out 4.5s forwards}
+@keyframes dot{from{r:0}to{r:7}}
+@keyframes w1{from{r:7;opacity:0}20%{opacity:1}to{r:18;opacity:1}}
+@keyframes w2{from{r:18;opacity:0;stroke-dasharray:100 0}15%{opacity:1}to{r:32;opacity:1;stroke-dasharray:16.6667 3.3333}}
+@keyframes w3{from{r:32;opacity:0;stroke-dasharray:100 0}15%{opacity:1}to{r:45;opacity:1;stroke-dasharray:4.4444 3.8889}}
+@keyframes echo{from{r:46;opacity:.55}to{r:62;opacity:0}}
+@media (prefers-reduced-motion:reduce){.hero-mark *{animation:none!important}}
 
 /* shared section */
-.sec{padding-block:clamp(96px,14vw,190px);border-top:1px solid var(--line-soft)}
+.sec{padding-block:clamp(88px,12vw,170px);border-top:1px solid var(--line-soft)}
 .sec h2{font-size:clamp(2.1rem,4.6vw,4.2rem);line-height:1.04;letter-spacing:-.03em}
 .sub{color:var(--muted);font-size:1.15rem;line-height:1.55;max-width:30em}
 .cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(20px,3vw,48px)}
 
-/* statement */
-.statement p{grid-column:2 / span 10;font-family:var(--serif);font-size:clamp(1.7rem,3.5vw,3.1rem);line-height:1.22;letter-spacing:-.02em;color:var(--faint)}
-.statement p b{font-weight:400;color:#fff}
+/* thesis */
+.thesis .big{grid-column:1 / span 10;font-family:var(--serif);font-size:clamp(2rem,4.3vw,3.9rem);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}
+.thesis .mid{grid-column:5 / span 7;margin-top:clamp(40px,6vw,72px);padding-top:28px;border-top:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.25rem,1.9vw,1.65rem);line-height:1.4;letter-spacing:-.01em;color:var(--muted)}
+
+/* employees */
+.emp .head{grid-column:1 / span 6}
+.emp .head h2{max-width:12em}
+.emp .head .sub{margin-top:32px;max-width:27em}
+.emp ol{grid-column:8 / span 5;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.emp li{padding:34px 0;border-bottom:1px solid var(--line)}
+.emp h3{font-size:clamp(1.5rem,2.1vw,2rem)}
+.emp li p{margin-top:12px;color:var(--muted)}
 
 /* platform */
-.platform .head{grid-column:1 / span 5}
+.platform .head{grid-column:1 / span 5;position:sticky;top:120px;align-self:start}
+.platform .head h2{font-size:clamp(1.9rem,3.2vw,3rem);line-height:1.1}
 .platform .head .sub{margin-top:28px}
-.platform .head{position:sticky;top:120px;align-self:start}
 .stages{grid-column:7 / span 6;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.stages li{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:24px;padding:34px 0;border-bottom:1px solid var(--line);transition:background .25s}
+.stages li{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:24px;padding:34px 0;border-bottom:1px solid var(--line)}
 .stages h3{font-size:clamp(1.6rem,2.3vw,2.2rem);transition:color .25s}
 .stages p{color:var(--muted);transition:color .25s}
 .stages li:hover h3{color:var(--blue)}
@@ -97,7 +114,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .outcomes p+p{grid-column:7 / span 6}
 
 /* preview */
-.preview .top{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
 .tabs{display:flex;gap:30px;margin-top:56px;border-bottom:1px solid var(--line)}
 .tab{background:none;border:0;padding:0 0 16px;color:var(--faint);cursor:pointer;font-weight:500;font-size:1rem;position:relative;transition:color .2s}
 .tab:hover{color:#fff}
@@ -119,15 +135,6 @@ ins{text-decoration:none;color:#fff;background:var(--blue-bg);border-bottom:2px 
 .rec small{display:block;color:var(--faint);margin-top:2px;font-size:.92rem}
 .fine{margin-top:20px;color:var(--faint);font-size:.9rem}
 
-/* employees */
-.emp .head{grid-column:1 / span 6}
-.emp .head h2{max-width:12em}
-.emp .head .sub{margin-top:32px;max-width:27em}
-.emp ol{grid-column:8 / span 5;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.emp li{padding:34px 0;border-bottom:1px solid var(--line)}
-.emp h3{font-size:clamp(1.5rem,2.1vw,2rem)}
-.emp li p{margin-top:12px;color:var(--muted)}
-
 /* teams */
 .teams .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:72px;border-top:1px solid var(--line)}
 .teams .row div{padding:34px 36px 0 0}
@@ -135,23 +142,18 @@ ins{text-decoration:none;color:#fff;background:var(--blue-bg);border-bottom:2px 
 .teams h3{font-size:1.7rem}
 .teams .row p{margin-top:12px;color:var(--muted)}
 
-/* finance */
-.fin .head{grid-column:1 / span 6}
-.fin .head .sub{margin-top:32px}
-.risks{grid-column:8 / span 5;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.risks li{padding:22px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.4rem,2.1vw,1.9rem);letter-spacing:-.015em}
-.fin .tail{grid-column:8 / span 5;margin-top:28px;color:var(--muted)}
-
-/* company */
-.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:72px;border-top:1px solid var(--line)}
-.person{padding:40px 40px 0 0}
-.person+.person{padding-left:40px;border-left:1px solid var(--line)}
-.person h3{font-size:clamp(2rem,3vw,2.8rem)}
-.person .role{margin-top:6px;color:var(--faint)}
-.person dl{margin:30px 0 0}
+/* background */
+.bgd .head{grid-column:1 / span 6}
+.bgd .head h2{max-width:11em}
+.bgd .head .sub{margin-top:32px;max-width:28em}
+.folks{grid-column:8 / span 5;border-top:1px solid var(--line)}
+.person{padding:36px 0;border-bottom:1px solid var(--line)}
+.person h3{font-size:clamp(1.9rem,2.8vw,2.6rem)}
+.person .role{margin-top:4px;color:var(--faint)}
+.person dl{margin:26px 0 0}
 .person dt{color:var(--faint);font-size:.92rem}
-.person dd{margin:3px 0 18px;font-size:1.15rem}
-.person .textlink{display:inline-block;margin-top:10px}
+.person dd{margin:3px 0 12px;font-size:1.15rem}
+.person .textlink{display:inline-block;margin-top:8px}
 
 /* access */
 .access{background:var(--bg2)}
@@ -187,27 +189,22 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
 /* responsive */
 @media (max-width:980px){
   .menu a:not(.pill){display:none}
-  .statement p{grid-column:1 / -1}
-  .platform .head,.stages,.outcomes p,.outcomes p+p,.emp .head,.emp ol,.fin .head,.risks,.fin .tail,.access .head,.fwrap{grid-column:1 / -1}
+  .hero{min-height:0}
+  .hero-grid{grid-template-columns:1fr;gap:44px;padding-top:112px}
+  .mark-wrap{order:-1;width:min(64vw,330px)}
+  .thesis .big,.thesis .mid,.emp .head,.emp ol,.platform .head,.stages,.outcomes p,.outcomes p+p,.bgd .head,.folks,.access .head,.fwrap{grid-column:1 / -1}
   .platform .head{position:static;margin-bottom:56px}
-  .stages{margin-top:0}
+  .emp ol,.folks,.fwrap{margin-top:56px}
   .outcomes p+p{margin-top:36px}
-  .emp ol,.risks,.fwrap{margin-top:56px}
-  .fin .tail{margin-top:24px}
   .stage{grid-template-columns:1fr}
   .teams .row{grid-template-columns:1fr}
   .teams .row div+div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:34px}
   .teams .row div{padding:34px 0 0}
-  .people{grid-template-columns:1fr}
-  .person+.person{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:40px}
-  .person{padding-right:0}
-  .rings{right:-50vw;width:132vw;top:30%}
 }
 @media (max-width:560px){
   .stages li{grid-template-columns:1fr;gap:8px}
   .tabs{gap:20px;overflow-x:auto}
   .logo{height:22px}
-  .hero h1{font-size:clamp(2.4rem,11.4vw,3.4rem)}
 }
 </style>
 </head>
@@ -218,10 +215,9 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
   <div class="in">
     <a href="#top" aria-label="Farfield home"><svg class="logo" role="img" aria-label="Farfield" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 658.43 136.00"><g transform="translate(14,14)"><g transform="scale(1.08)"><circle cx="50" cy="50" r="7" fill="currentColor"/><circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width="8"/><path d="M53.34,18.18 A32,32 0 0 1 79.23,36.98" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M81.30,43.35 A32,32 0 0 1 71.41,73.78" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M66.00,77.71 A32,32 0 0 1 34.00,77.71" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M28.59,73.78 A32,32 0 0 1 18.70,43.35" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M20.77,36.98 A32,32 0 0 1 46.66,18.18" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M66.86,8.28 A45,45 0 0 1 77.70,14.54" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M85.46,22.30 A45,45 0 0 1 91.72,33.14" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M94.56,43.74 A45,45 0 0 1 94.56,56.26" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M91.72,66.86 A45,45 0 0 1 85.46,77.70" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M77.70,85.46 A45,45 0 0 1 66.86,91.72" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M56.26,94.56 A45,45 0 0 1 43.74,94.56" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M33.14,91.72 A45,45 0 0 1 22.30,85.46" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M14.54,77.70 A45,45 0 0 1 8.28,66.86" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M5.44,56.26 A45,45 0 0 1 5.44,43.74" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M8.28,33.14 A45,45 0 0 1 14.54,22.30" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M22.30,14.54 A45,45 0 0 1 33.14,8.28" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/><path d="M43.74,5.44 A45,45 0 0 1 56.26,5.44" fill="none" class="acs" stroke-width="7" stroke-linecap="butt"/></g><g transform="translate(136,18.0)"><g fill="currentColor" transform="translate(-9.48,72.00) scale(0.09769,-0.09769)"><path transform="translate(0,0)" d="M97 0H213V317H486V414H213V639H533V737H97Z"/><path transform="translate(621.0,0)" d="M0 0H119L181 209H437L499 0H622L378 737H244ZM209 301 238 400C262 480 285 561 307 645H311C334 562 356 480 380 400L409 301Z"/><path transform="translate(1331.0,0)" d="M213 390V643H324C430 643 489 612 489 523C489 434 430 390 324 390ZM499 0H630L450 312C543 341 604 409 604 523C604 683 490 737 338 737H97V0H213V297H333Z"/><path transform="translate(2087.0,0)" d="M97 0H213V317H486V414H213V639H533V737H97Z"/><path transform="translate(2753.0,0)" d="M97 0H213V737H97Z"/><path transform="translate(3162.0,0)" d="M97 0H543V99H213V336H483V434H213V639H532V737H97Z"/><path transform="translate(3862.0,0)" d="M97 0H525V99H213V737H97Z"/><path transform="translate(4515.0,0)" d="M97 0H294C514 0 643 131 643 371C643 612 514 737 288 737H97ZM213 95V642H280C438 642 523 555 523 371C523 188 438 95 280 95Z"/></g></g></g></svg></a>
     <nav class="menu" aria-label="Main">
-      <a href="#platform">Platform</a>
       <a href="#employees">Employees</a>
-      <a href="#finance">Finance</a>
-      <a href="#company">Company</a>
+      <a href="#platform">Platform</a>
+      <a href="#background">Background</a>
       <a class="pill ghost" href="#access">Request early access</a>
     </nav>
   </div>
@@ -229,20 +225,44 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
 
 <main id="main">
 <section class="hero" id="top">
-  <div class="rings"><svg class="ring-art" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g class="guides"><circle cx="50" cy="50" r="25" fill="none" class="rgr" stroke-width="0.12"/><circle cx="50" cy="50" r="38.5" fill="none" class="rgr" stroke-width="0.12"/><circle cx="50" cy="50" r="52" fill="none" class="rgr" stroke-width="0.12"/></g><g class="core"><circle cx="50" cy="50" r="1.5" class="rff"/><circle cx="50" cy="50" r="18" fill="none" class="rfs" stroke-width="0.32"/></g><g class="spin-a"><path d="M53.34,18.18 A32,32 0 0 1 79.23,36.98" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M81.30,43.35 A32,32 0 0 1 71.41,73.78" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M66.00,77.71 A32,32 0 0 1 34.00,77.71" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M28.59,73.78 A32,32 0 0 1 18.70,43.35" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M20.77,36.98 A32,32 0 0 1 46.66,18.18" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/></g><g class="spin-b"><path d="M66.86,8.28 A45,45 0 0 1 77.70,14.54" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M85.46,22.30 A45,45 0 0 1 91.72,33.14" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M94.56,43.74 A45,45 0 0 1 94.56,56.26" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M91.72,66.86 A45,45 0 0 1 85.46,77.70" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M77.70,85.46 A45,45 0 0 1 66.86,91.72" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M56.26,94.56 A45,45 0 0 1 43.74,94.56" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M33.14,91.72 A45,45 0 0 1 22.30,85.46" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M14.54,77.70 A45,45 0 0 1 8.28,66.86" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M5.44,56.26 A45,45 0 0 1 5.44,43.74" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M8.28,33.14 A45,45 0 0 1 14.54,22.30" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M22.30,14.54 A45,45 0 0 1 33.14,8.28" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/><path d="M43.74,5.44 A45,45 0 0 1 56.26,5.44" fill="none" class="ras" stroke-width="0.55" stroke-linecap="butt"/></g></svg></div>
-  <div class="in">
-    <h1><span>The agent run ends.</span><span>The work doesn’t.</span></h1>
-    <p class="lede">Farfield follows AI output into the tools your people actually work in, captures what they fix, and turns it into signals your teams can act on.</p>
-    <div class="acts">
-      <a class="pill solid" href="#access">Request early access</a>
-      <a class="textlink" href="#platform">How it works</a>
+  <div class="in hero-grid">
+    <div class="copy">
+      <h1><span>The agent run ends.</span><span>The work doesn’t.</span></h1>
+      <p class="lede">Farfield follows AI output into the tools your people actually work in, captures what they fix, and turns it into signals your teams can act on.</p>
+      <div class="acts">
+        <a class="pill solid" href="#access">Request early access</a>
+        <a class="textlink" href="#platform">How it works</a>
+      </div>
     </div>
+    <div class="mark-wrap"><svg class="hero-mark" viewBox="0 0 100 100" role="img" aria-label="Farfield mark" focusable="false">
+<circle class="echo e1" cx="50" cy="50" r="46"/>
+<circle class="echo e2" cx="50" cy="50" r="46"/>
+<circle class="dot" cx="50" cy="50" r="7"/>
+<circle class="w1" cx="50" cy="50" r="18" pathLength="100"/>
+<circle class="w2" cx="50" cy="50" r="32" pathLength="100" transform="rotate(-84 50 50)"/>
+<circle class="w3" cx="50" cy="50" r="45" pathLength="100" transform="rotate(-68 50 50)"/>
+</svg></div>
   </div>
 </section>
 
-<section class="sec statement" aria-label="The problem">
+<section class="sec thesis" aria-label="Our thesis">
   <div class="in cols">
-    <p><b>AI agents are spreading fast.</b> The people fixing their mistakes are often domain experts who can’t change them. So they accept the output, rework it in Excel, Word, or email, and move on. The fix lives in a file, and rarely anywhere the agent’s owners can see it.</p>
+    <p class="big">The best signals to assess AI failure often come from the least technical employees.</p>
+    <p class="mid">Farfield starts where the agent stack ends, following output into the tools and processes employees actually work in to capture what gets fixed before the work is truly done.</p>
+  </div>
+</section>
+
+<section class="sec emp" id="employees" aria-labelledby="emp-h">
+  <div class="in cols">
+    <div class="head">
+      <h2 id="emp-h">Built for the employees who fix what AI gets wrong.</h2>
+      <p class="sub">Every day, analysts and operators catch what agents miss. That judgment is valuable, and today it disappears into the file they send. Farfield makes it count.</p>
+    </div>
+    <ol>
+      <li><h3>Fix it once</h3><p>When the same correction shows up across a team, it goes to the people who can change the agent, so the whole team stops repeating it.</p></li>
+      <li><h3>Your judgment becomes signal</h3><p>Corrections are treated as expert input to the system. Farfield measures the agent, not the person.</p></li>
+      <li><h3>No prompts required</h3><p>Our goal is for domain experts to improve enterprise AI without needing to understand prompts, models, or agent infrastructure.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -250,8 +270,8 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
   <div class="in">
     <div class="cols">
       <div class="head">
-        <h2 id="platform-h">Farfield starts where the agent stack ends.</h2>
-        <p class="sub">Other observability tools stop when the agent run completes. Farfield follows the output into the tools and processes employees work in, to capture what gets fixed before the work is truly done.</p>
+        <h2 id="platform-h">Other observability tools stop when the agent run completes. Farfield starts there.</h2>
+        <p class="sub">Farfield compares what the agent produced with what people approve, across the tools they actually use.</p>
       </div>
       <ol class="stages">
         <li><h3>Compare</h3><p>Raw AI output against the final, human-approved work in Excel, Word, email, and internal systems.</p></li>
@@ -269,9 +289,7 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
 
 <section class="sec preview" id="preview" aria-labelledby="preview-h">
   <div class="in">
-    <div class="top">
-      <h2 id="preview-h">See what changed, not just what was produced.</h2>
-    </div>
+    <h2 id="preview-h">See what changed, not just what was produced.</h2>
     <div class="tabs" role="tablist" aria-label="Views">
       <button class="tab" role="tab" id="tab-a" aria-selected="false" aria-controls="doc" data-v="a" tabindex="-1">Agent output</button>
       <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="doc" data-v="b" tabindex="-1">Approved work</button>
@@ -313,20 +331,6 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
   </div>
 </section>
 
-<section class="sec emp" id="employees" aria-labelledby="emp-h">
-  <div class="in cols">
-    <div class="head">
-      <h2 id="emp-h">Built for the people who fix what AI gets wrong.</h2>
-      <p class="sub">Every day, analysts and operators catch what agents miss. That judgment is valuable, and today it disappears into the file they send. Farfield makes it count.</p>
-    </div>
-    <ol>
-      <li><h3>Fix it once</h3><p>When the same correction shows up across a team, it goes to the people who can change the agent, so the whole team stops repeating it.</p></li>
-      <li><h3>Your judgment becomes signal</h3><p>Corrections are treated as expert input to the system. Farfield measures the agent, not the person.</p></li>
-      <li><h3>No prompts required</h3><p>Our goal is for domain experts to improve enterprise AI without needing to understand prompts, models, or agent infrastructure.</p></li>
-    </ol>
-  </div>
-</section>
-
 <section class="sec teams" aria-labelledby="teams-h">
   <div class="in">
     <h2 id="teams-h">One view for the teams accountable for AI.</h2>
@@ -338,27 +342,13 @@ footer{border-top:1px solid var(--line-soft);padding-block:44px 56px}
   </div>
 </section>
 
-<section class="sec fin" id="finance" aria-labelledby="fin-h">
+<section class="sec bgd" id="background" aria-labelledby="bg-h">
   <div class="in cols">
     <div class="head">
-      <h2 id="fin-h">We're starting in finance.</h2>
-      <p class="sub">The cost of “almost correct” is unusually high. Where a slightly imperfect answer is an annoyance elsewhere, here it can create real operational or regulatory risk.</p>
+      <h2 id="bg-h">We saw the same problem from different desks.</h2>
+      <p class="sub">Agents are spreading fast, but the people fixing their mistakes are often non-technical domain experts. Belle saw it in operations at Citadel. Charlotte saw it in quantitative investment strategies at Goldman Sachs. We lived it firsthand, and we are building Farfield to give those corrections somewhere to go.</p>
     </div>
-    <ul class="risks">
-      <li>Wrong figures</li>
-      <li>Wrong legal language</li>
-      <li>Wrong product treatment</li>
-      <li>Wrong compliance interpretation</li>
-      <li>Wrong trade field</li>
-    </ul>
-    <p class="tail">Analysts and operators are valued for their domain knowledge. Farfield gives their corrections somewhere to go.</p>
-  </div>
-</section>
-
-<section class="sec company" id="company" aria-labelledby="co-h">
-  <div class="in">
-    <h2 id="co-h">Built by people who worked these desks.</h2>
-    <div class="people">
+    <div class="folks">
       <article class="person">
         <h3>Belle Zou</h3>
         <p class="role">Co-founder</p>
